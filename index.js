@@ -17,11 +17,11 @@ const init  = async (res) => {
   try {
     const response = await axios.get(url);
     const $ = cheerio.load(response.data);
-    const missions =  $('h2:contains("Missions of The Day")');
-    missions.pop(); // remove vip mission
+    let missions =  $('h2:contains("Missions of The Day")');
     // const container = $(mission).closest('li').html();
 
     if (missions.length) {
+        missions = [missions[0]];
         var params = {
             username: "SF Bull",
             avatar_url: "https://epins-gamestore.com/image/cache/catalog/bullsf/13239044_851643544979507_4216959116671837103_n-300x300.jpg",
