@@ -6,7 +6,7 @@ const express = require('express');
 const DISCORD_WEBHOOK = process.env.DISCORD_WEBHOOK || '';
   
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 const init  = async (res) => {
   if (!DISCORD_WEBHOOK || DISCORD_WEBHOOK === '') {
