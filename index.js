@@ -2,11 +2,15 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 require('dotenv/config');
 
+const express = require('express');
 const DISCORD_WEBHOOK = process.env.DISCORD_WEBHOOK || '';
+  
+const app = express();
+const PORT = 3000;
 
-(async () => {
+const init  = async (res) => {
   if (!DISCORD_WEBHOOK || DISCORD_WEBHOOK === '') {
-    console.log('UNABLE TO SEND WEBHOOK'); 
+    return res.status(400).send('UNABLE TO SEND WEBHOOK'); 
     return false; 
 
   }
@@ -72,13 +76,23 @@ const DISCORD_WEBHOOK = process.env.DISCORD_WEBHOOK || '';
             const { data } = res;
             console.log('RESPONSE', data);
         }).catch(e => {
-            console.error(e);
+            return res.status(400).send(e.message);
         });
         
     }
   } catch (e) {
     console.error(e);
   }
-})();
-
-
+}
+app.get('/', async (req, res)=>{
+    await init(res);
+    res.send('Success');
+});
+  
+app.listen(PORT, (error) =>{
+    if(!error)
+        console.log("Server is Successfully Running", PORT);
+    else 
+        console.log("Error occurred, server can't start", error);
+    }
+);
