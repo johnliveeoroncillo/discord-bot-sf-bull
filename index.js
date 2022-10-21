@@ -18,6 +18,7 @@ const init  = async (res) => {
     const response = await axios.get(url);
     const $ = cheerio.load(response.data);
     const missions =  $('h2:contains("Missions of The Day")');
+    missions.pop(); // remove vip mission
     // const container = $(mission).closest('li').html();
 
     if (missions.length) {
