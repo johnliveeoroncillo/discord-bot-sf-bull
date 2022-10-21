@@ -11,8 +11,6 @@ const PORT = 3000;
 const init  = async (res) => {
   if (!DISCORD_WEBHOOK || DISCORD_WEBHOOK === '') {
     return res.status(400).send('UNABLE TO SEND WEBHOOK'); 
-    return false; 
-
   }
   const args = process.argv.slice(2);
   const url = `https://sf.bullgamez.com/`;
@@ -86,7 +84,7 @@ const init  = async (res) => {
 }
 app.get('/', async (req, res)=>{
     await init(res);
-    res.send('Success');
+    res.status(200).send('Webhook success');
 });
   
 app.listen(PORT, (error) =>{
