@@ -69,7 +69,8 @@ const DISCORD_WEBHOOK = process.env.DISCORD_WEBHOOK || '';
                 'Content-type': 'application/json',
             }
         }).then(res => {
-            console.log(res);
+            const { data } = res;
+            console.log('RESPONSE', data);
         }).catch(e => {
             console.error(e);
         });
