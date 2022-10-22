@@ -83,9 +83,13 @@ const init  = async (res) => {
     console.error(e);
   }
 }
-app.get('/', async (req, res)=>{
+app.get('/webhook', async (req, res)=>{
     await init(res);
     res.status(200).send('Webhook success');
+});
+
+app.get('/', async (req, res)=>{
+    res.status(200).send('Hello');
 });
   
 app.listen(PORT, (error) =>{
