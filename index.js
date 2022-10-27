@@ -1,6 +1,7 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
 const moment = require('moment-timezone');
+require('moment-countdown');
 moment.tz.setDefault('Asia/Manila');
 
 require('dotenv/config');
@@ -115,12 +116,16 @@ const dailyLogin  = async (res) => {
           const tr = $(daily_login).closest('li').find('table').find('tr');
           const span = $(tr).find('td').find('span');
           if (span.length) {
-                const data = $(daily_login).text().split('-');
-                const date = data[1].trim().replace(/\./g, '-');
-                const formatted = moment(new Date(date)).format('YYYY-MM-DD');
-                console.log(date, new Date(date));
+                const today = moment(new Date(), 'YYYY-MM-DD HH:mm:ss');
+                const next_day = moment(today, 'YYYY-MM-DD HH:mm:ss').add(1, 'day');
+                next_day.set({hour:0,minute:0,second:0,millisecond:0})
+                const countdown = moment(today).countdown(next_day);
+
+                const h = countdown.hours.toString().length === 1 ? '0' + countdown.hours : countdown.hours;
+                const m = countdown.minutes.toString().length === 1 ? '0' + countdown.minutes : countdown.minutes;
+                const s = countdown.seconds.toString().length === 1 ? '0' + countdown.seconds : countdown.seconds;
                 params.embeds[index].fields.push({
-                    name: "📅 Daily Login Notification",
+                    name: `📅 Daily Login Notification (${h} hours ${m} minutes ${s} seconds) left`,
                     value: $(span).text(),
                     inline: false,
                 });
@@ -154,3 +159,4 @@ app.listen(PORT, (error) =>{
         console.log("Error occurred, server can't start", error);
     }
 );
+    
