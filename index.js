@@ -30,7 +30,7 @@ const sendDiscord = async(params, res) => {
         console.error(e.message, e.stack, JSON.stringify(e, null,4));
     });
 }
-
+ 
 const dailyMission  = async (res) => {
   const url = `https://sf.bullgamez.com/`;
   try {
