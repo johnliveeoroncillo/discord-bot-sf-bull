@@ -37,6 +37,7 @@ const dailyMission  = async (res) => {
     const response = await axios.get(url);
     const $ = cheerio.load(response.data);
     const missions =  $('h2:contains("Missions of The Day")');
+    console.log(missions);
     // const container = $(mission).closest('li').html();
     if (missions.length) {
 
@@ -49,6 +50,7 @@ const dailyMission  = async (res) => {
     
         for (let m = 0; m < missions.length; m++) {
             const mission = missions[m];
+            console.log(mission);
             const index = params.embeds.push({
                 "title": $(mission).text(),
                 "color": m === 0 ? 22015 : 15258703,
