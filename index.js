@@ -10,7 +10,7 @@ const express = require('express');
 const DISCORD_WEBHOOK = process.env.DISCORD_WEBHOOK || '';
   
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 7000;
 
 const sendDiscord = async(params, res) => {
     if (!DISCORD_WEBHOOK || DISCORD_WEBHOOK === '') {
